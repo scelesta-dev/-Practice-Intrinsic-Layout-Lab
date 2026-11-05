@@ -41,22 +41,35 @@
 @layer layout {
   .wrapper {
     /* Add a flexible logical inline-size and margin-inline auto. */
+    inline-size: min(100% - 2rem, 75rem);
+    margin-inline: auto;
   }
 
   .section {
     /* Add fluid block spacing. */
+    padding-block: clamp(2rem, 5vw, 4rem);
   }
 
   .hero-layout {
     /* Add a responsive layout pattern. */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 2rem;
+    align-items: center;
   }
 
   .guide-grid {
     /* Build an intrinsic grid using repeat(), auto-fit/auto-fill, and minmax(). */
+     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1.5rem;
   }
 
   .feature-shell {
     /* Try this component in different container widths. */
+    inline-size: 100%;
+    padding-inline: 1rem;
+    padding-block: 1.5rem;
   }
 }
 
@@ -101,12 +114,23 @@
 
   .feature-card {
     /* Add container-type and a container query for the body layout. */
+    container-type: inline-size;
+    container-name: feature;
   }
 
   .feature-card__media {
     min-block-size: 10rem;
     border-radius: var(--radius);
     background: linear-gradient(135deg, var(--color-accent), var(--color-gold));
+  }
+
+  @container feature (min-width: 35rem){
+    .feature-card__body{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
   }
 }
 
@@ -122,5 +146,12 @@
   *::before,
   *::after {
     scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 40rem) {
+  .hero-layout,
+  .guide-grid {
+    grid-template-columns: 1fr;
   }
 }
